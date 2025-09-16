@@ -199,21 +199,11 @@ Array.from(selector).map((element) => {
   }
 });
 
-function showTooltip(li, input, selectBoxData , id) {
-  const existing = li.querySelector(".tooltip-input");
-  if (existing) return;
+function showTooltip(li, input, selectBoxData, id) {
+  const tooltip = li.querySelector(".tooltip-input");
+  if (!tooltip) return;
 
-  const label = li.dataset.explain
-  const tooltip = document.createElement("div");
-  tooltip.className = "tooltip-input";
-  tooltip.innerHTML = `
-  <label for=${label}>${label}</label>
-    <input id=${label} type="text" placeholder="Type..." />
-    <button>Save</button>
-  `;
-
-  li.appendChild(tooltip);
-
+  tooltip.classList.remove("hidden");
   requestAnimationFrame(() => tooltip.classList.add("show"));
 
   const tooltipInput = tooltip.querySelector("input");
@@ -223,33 +213,38 @@ function showTooltip(li, input, selectBoxData , id) {
 
   if (li.dataset.explainText) tooltipInput.value = li.dataset.explainText;
 
-  saveBtn.addEventListener("click", () => {
-    li.dataset.explainText = tooltipInput.value;
+saveBtn.onclick = () => {
+  const val = tooltipInput.value.trim();
 
-      const idx = selectBoxData.findIndex(item => item.li === li);
+  if (!val) {
+    const idx = selectBoxData.findIndex(item => item.li === li);
+    if (idx > -1) selectBoxData.splice(idx, 1);
 
-
-
- if (idx > -1) {
-    
-    selectBoxData[idx].value = tooltipInput.value;
+    delete li.dataset.explainText;
   } else {
+    li.dataset.explainText = val;
 
-    selectBoxData.push({ li, value: tooltipInput.value });
+    const idx = selectBoxData.findIndex(item => item.li === li);
+    if (idx > -1) {
+      selectBoxData[idx].value = val;
+    } else {
+      selectBoxData.push({ li, value: val });
+    }
   }
 
   input.value = selectBoxData.map(i => i.value).join(", ");
-      input.classList.remove("active-selector")
-    closeSelectBoxHandler(input, id);
+  input.classList.remove("active-selector");
+  closeSelectBoxHandler(input, id);
 
-    tooltip.remove();
-  });
+  tooltip.classList.add("hidden");
+};
+
 
   document.addEventListener(
     "click",
     (e) => {
       if (!li.contains(e.target)) {
-        tooltip.remove();
+        tooltip.classList.add("hidden");
       }
     },
     { once: true }

@@ -197,21 +197,10 @@ Array.from(selector).map((element) => {
 });
 
 function showTooltip(li, input, selectBoxData, id) {
-  const existing = li.querySelector(".tooltip-input");
-  if (existing) return;
+  const tooltip = li.querySelector(".tooltip-input");
+  if (!tooltip) return;
 
-    const label = li.dataset.explain
-
-  const tooltip = document.createElement("div");
-  tooltip.className = "tooltip-input";
-  tooltip.innerHTML = `
-    <label for=${label}>${label}</label>
-    <input id=${label} type="text" placeholder="وارد کنید..." />
-    <button>ذخیره</button>
-  `;
-
-  li.appendChild(tooltip);
-
+  tooltip.classList.remove("hidden");
   requestAnimationFrame(() => tooltip.classList.add("show"));
 
   const tooltipInput = tooltip.querySelector("input");
@@ -221,34 +210,34 @@ function showTooltip(li, input, selectBoxData, id) {
 
   if (li.dataset.explainText) tooltipInput.value = li.dataset.explainText;
 
-  saveBtn.addEventListener("click", () => {
+  saveBtn.onclick = () => {
     li.dataset.explainText = tooltipInput.value;
 
-    const idx = selectBoxData.findIndex((item) => item.li === li);
-
+    const idx = selectBoxData.findIndex(item => item.li === li);
     if (idx > -1) {
       selectBoxData[idx].value = tooltipInput.value;
     } else {
       selectBoxData.push({ li, value: tooltipInput.value });
     }
 
-    input.value = selectBoxData.map((i) => i.value).join(", ");
-    input.classList.remove("active-selector")
+    input.value = selectBoxData.map(i => i.value).join(", ");
+    input.classList.remove("active-selector");
     closeSelectBoxHandler(input, id);
 
-    tooltip.remove();
-  });
+    tooltip.classList.add("hidden"); 
+  };
 
   document.addEventListener(
     "click",
     (e) => {
       if (!li.contains(e.target)) {
-        tooltip.remove();
+        tooltip.classList.add("hidden");
       }
     },
     { once: true }
   );
 }
+
 
 const inpus = document.querySelectorAll(
   "input[type='text'], input[type='email'], input[type='number']"

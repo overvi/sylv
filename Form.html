@@ -607,7 +607,18 @@
                         <li>Art & Design</li>
                         <li>Music / Drama / Performing Arts</li>
                         <li>Language Learning</li>
-                        <li data-explain="others" class="relative">Others</li>
+                        <li data-explain="others" class="relative">
+                          Others
+                          <div class="tooltip-input hidden">
+                            <label for="name">Name</label>
+                            <input
+                              id="name"
+                              type="text"
+                              placeholder="Type..."
+                            />
+                            <button type="button">Save</button>
+                          </div>
+                        </li>
                       </ul>
                     </div>
                   </div>
@@ -644,7 +655,15 @@
                       />
 
                       <ul class="select-option" id="select-box">
-                        <li data-explain="others" class="relative">Yes</li>
+                        <li data-explain="others" class="relative">Yes     <div class="tooltip-input hidden">
+                            <label for="name">Name</label>
+                            <input
+                              id="name"
+                              type="text"
+                              placeholder="Type..."
+                            />
+                            <button type="button">Save</button>
+                          </div></li>
                         <li>No</li>
                       </ul>
                     </div>
@@ -776,7 +795,15 @@
                       />
 
                       <ul class="select-option" id="select-box">
-                        <li class="relative" data-explain="yes">Yes</li>
+                        <li class="relative" data-explain="yes">Yes <div class="tooltip-input hidden">
+                            <label for="name">Name</label>
+                            <input
+                              id="name"
+                              type="text"
+                              placeholder="Type..."
+                            />
+                            <button type="button">Save</button>
+                          </div></li>
                         <li>No</li>
                       </ul>
                     </div>
@@ -872,7 +899,7 @@
                       </ul>
                     </div>
                   </div>
-              
+
                   <div>
                     <span>Is preparing for university a current goal?</span>
                     <div class="relative select-con">
@@ -908,9 +935,12 @@
                       </ul>
                     </div>
                   </div>
-                
+
                   <div>
-                    <span>What features are most important to you in a course?</span>
+                    <span
+                      >What features are most important to you in a
+                      course?</span
+                    >
                     <div class="relative select-con">
                       <svg
                         class="select-arrow"
@@ -944,11 +974,21 @@
                         <li>Peer group collaboration or activities</li>
                         <li>Homework support / mentoring</li>
                         <li>Offline assignments / printable resources</li>
-                        <li data-explain="others" class="relative">Other (please specify):</li>
+                        <li data-explain="others" class="relative">
+                          <div class="tooltip-input hidden">
+                            <label for="name">Name</label>
+                            <input
+                              id="name"
+                              type="text"
+                              placeholder="Type..."
+                            />
+                            <button type="button">Save</button>
+                          </div>
+                          Other (please specify):
+                        </li>
                       </ul>
                     </div>
                   </div>
-                 
                 </form>
               </div>
               <div class="swiper-slide">
@@ -1011,7 +1051,6 @@
                       />
 
                       <ul class="select-option" id="select-box">
-                      
                         <li>Yes</li>
                         <li>No</li>
                       </ul>

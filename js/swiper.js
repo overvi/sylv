@@ -30,7 +30,9 @@ const tickSvg = `
 function getFormData(currentIndex) {
   const slides = swiper.slides;
   const formElement = slides[currentIndex].firstElementChild;
-  return Array.from(formElement.querySelectorAll("input, select, textarea"));
+  
+  return Array.from(formElement.querySelectorAll("input, select, textarea"))
+    .filter(el => !el.closest(".tooltip-input")); 
 }
 
 function formTitleHandler(currentIndex) {
@@ -79,7 +81,6 @@ nextBtn.addEventListener("click", (e) => {
   }
 
   if (currentIndex === 4) {
-    // Fetch Data Here
 
     const fetchData = true;
 
@@ -93,6 +94,7 @@ nextBtn.addEventListener("click", (e) => {
 
   const formData = getFormData(currentIndex);
 
+  console.log(formData.map(a => a.value))
   const checkFormData = formData.every(
     (element) => element.value && element.validity.valid
   );
